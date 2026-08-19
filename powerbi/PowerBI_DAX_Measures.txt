@@ -1,0 +1,44 @@
+-- Supply Chain Power BI DAX Measures
+-- Create these measures after importing Supply_Chain_PowerBI_Data.csv
+
+Total Orders =
+COUNTROWS(Supply_Chain_PowerBI_Data)
+
+Delayed Orders =
+CALCULATE(
+    COUNTROWS(Supply_Chain_PowerBI_Data),
+    Supply_Chain_PowerBI_Data[Delivery_Status] = "Delayed"
+)
+
+On Time Orders =
+CALCULATE(
+    COUNTROWS(Supply_Chain_PowerBI_Data),
+    Supply_Chain_PowerBI_Data[Delivery_Status] = "On Time"
+)
+
+Delay Rate % =
+DIVIDE([Delayed Orders], [Total Orders], 0) * 100
+
+Total Order Value =
+SUM(Supply_Chain_PowerBI_Data[Total_Order_Value])
+
+Total Transportation Cost =
+SUM(Supply_Chain_PowerBI_Data[Transportation_Cost])
+
+Average Lead Time =
+AVERAGE(Supply_Chain_PowerBI_Data[Lead_Time_Days])
+
+Average Delay Days =
+AVERAGE(Supply_Chain_PowerBI_Data[Delivery_Delay_Days])
+
+Average Supplier Performance % =
+AVERAGE(Supply_Chain_PowerBI_Data[Supplier_Performance_Pct])
+
+Total Quantity =
+SUM(Supply_Chain_PowerBI_Data[Quantity])
+
+Low Inventory Orders =
+CALCULATE(
+    COUNTROWS(Supply_Chain_PowerBI_Data),
+    Supply_Chain_PowerBI_Data[Inventory_Status] = "Low"
+)
